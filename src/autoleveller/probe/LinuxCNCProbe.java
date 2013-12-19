@@ -1,9 +1,10 @@
-/*  	AutoLeveller (http://www.autoleveller.co.uk) is a stand-alone PC application written in Java which is designed
+/*  	GRBL AutoLeveller (https://github.com/henols/GrblAutoLeveller) is a stand-alone PC application written in Java which is designed
  *  	to measure precisely the height of the material to be milled / etched in several places,
  *  	then use the information gathered to make adjustments to the Z height
  *  	during the milling / etching process so that a more consistent and accurate result can be achieved. 
  *   
  *   	Copyright (C) 2013 James Hawthorne PhD, daedelus1982@gmail.com
+ *   	Copyright (C) 2013 Henrik Olsson, henols@gmail.com
  *
  *   	This program is free software; you can redistribute it and/or modify
  *   	it under the terms of the GNU General Public License as published by
@@ -17,7 +18,7 @@
  *
  *   	You should have received a copy of the GNU General Public License along
  *   	with this program; if not, see http://www.gnu.org/licenses/
-*/
+ */
 package autoleveller.probe;
 
 import java.io.PrintWriter;
@@ -31,7 +32,13 @@ class LinuxCNCProbe extends Probe
         super(units, xStart, yStart, millWidth, millHeight, probeFeed, probeDepth, probeSpacing, finishHeight, probeClearance);
     }
 
-    @Override
+    public LinuxCNCProbe(String units, double xStart, double yStart, double millWidth, double millHeight,
+			double probeFeed, double probeDepth, double probeSpacing, double finishHeight, double probeClearance,
+			SimplePoint3DCNC[][] points) {
+    	super(units, xStart, yStart, millWidth, millHeight, probeFeed, probeDepth, probeSpacing, finishHeight, probeClearance, points);
+	}
+
+	@Override
     protected String probeCommand(String depth, String feed) 
     {
         return "G38.2 Z" + depth + " F" + feed;
